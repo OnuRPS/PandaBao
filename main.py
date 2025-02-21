@@ -1,8 +1,8 @@
 import os
-import requests
-import time
+import aiohttp
 import asyncio
 from telegram import Bot
+from telegram.ext import Updater, CommandHandler
 
 # Configurări - Citire variabile de mediu
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -13,11 +13,11 @@ API_URL = "https://api.bscscan.com/api"
 
 # Verificare dacă variabilele sunt setate corect
 if not TELEGRAM_TOKEN:
-    raise ValueError("⚠️ TELEGRAM_TOKEN lipsește! Verifică variabilele de mediu din Railway.")
+    raise ValueError("⚠️ TELEGRAM_TOKEN lipsește! Verifică variabilele de mediu.")
 if not CHAT_ID:
-    raise ValueError("⚠️ CHAT_ID lipsește! Verifică variabilele de mediu din Railway.")
+    raise ValueError("⚠️ CHAT_ID lipsește! Verifică variabilele de mediu.")
 if not BSCSCAN_API_KEY:
-    raise ValueError("⚠️ BSCSCAN_API_KEY lipsește! Verifică variabilele de mediu din Railway.")
+    raise ValueError("⚠️ BSCSCAN_API_KEY lipsește! Verifică variabilele de mediu.")
 
 # Inițializare bot Telegram
 bot = Bot(token=TELEGRAM_TOKEN)
@@ -27,9 +27,10 @@ async def check_transactions():
     last_tx = ""  # Salvează ultima tranzacție verificată
     while True:
         try:
-            # Cerere către BscScan API
-            response = requests.get(f"{API_URL}?module=account&action=txlist&address={CONTRACT_ADDRESS}&sort=desc&apikey={BSCSCAN_API_KEY}")
-            data = response.json()
+            # Cerere către BscScan API folosind aiohttp pentru a face cererea asincron
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f"{API_URL}?module=account&action=txlist&address={CONTRACT_ADDRESS}&sort=desc&apikey={BSCSCAN_API_KEY}") as response:
+                    data = await response.json()
 
             # Verificare dacă răspunsul API este valid
             if data.get("status") == "1" and "result" in data:
