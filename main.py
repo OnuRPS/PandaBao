@@ -42,10 +42,10 @@ async def check_transactions():
                     
                     # Construire mesaj
                     message = (
-                        f"🔔 **Nouă tranzacție!**\n\n"
-                        f"📤 De la: `{sender}`\n"
-                        f"💰 Suma: {amount} BNB\n"
-                        f"🔗 [Vezi pe BscScan](https://bscscan.com/tx/{last_tx})"
+                        f"🔔 **🐼A new transaction has been made! 🐼**\n\n"
+                        f"📤 From:  `{sender}`\n"
+                        f"💰 Amount: {amount} BNB\n"
+                        f"🔗 [Check the transaction on BSCscan 🧐](https://bscscan.com/tx/{last_tx})"
                     )
 
                     # Trimitere mesaj pe Telegram (await necesar)
