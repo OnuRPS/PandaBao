@@ -1,6 +1,7 @@
 import os
 import requests
 import time
+import asyncio
 from telegram import Bot
 
 # Configurări - Citire variabile de mediu
@@ -22,7 +23,7 @@ if not BSCSCAN_API_KEY:
 bot = Bot(token=TELEGRAM_TOKEN)
 
 # Funcție pentru verificarea tranzacțiilor
-def check_transactions():
+async def check_transactions():
     last_tx = ""  # Salvează ultima tranzacție verificată
     while True:
         try:
@@ -46,13 +47,13 @@ def check_transactions():
                         f"🔗 [Vezi pe BscScan](https://bscscan.com/tx/{last_tx})"
                     )
 
-                    # Trimitere mesaj pe Telegram
-                    bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="Markdown")
+                    # Trimitere mesaj pe Telegram (await necesar)
+                    await bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="Markdown")
         except Exception as e:
             print(f"⚠️ Eroare: {e}")
         
-        time.sleep(30)  # Verificare la fiecare 30 de secunde
+        await asyncio.sleep(30)  # Verificare la fiecare 30 de secunde
 
-# Executare cod
+# Executare cod într-un loop async
 if __name__ == "__main__":
-    check_transactions()
+    asyncio.run(check_transactions())
