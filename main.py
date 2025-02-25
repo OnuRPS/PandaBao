@@ -37,18 +37,21 @@ async def check_transactions():
                 latest_tx = data["result"][0]
                 if latest_tx["hash"] != last_tx:
                     last_tx = latest_tx["hash"]  # Actualizare ultima tranzacție
-                    amount = int(latest_tx["value"]) / 10**18
+                    amount = int(latest_tx["value"]) / 10**18  # Conversie la unități de tokenuri
                     sender = latest_tx["from"]
                     
                     # Construire mesaj
                     message = (
-                        f"🔔 **🐼A new transaction has been made! 🐼**\n\n"
-                        f"📤 From:  `{sender}`\n"
-                        f"💰 Amount: {amount} BNB\n"
+                        f"🦑 Panda Bao Token Purchase! 🐼\n\n"
+                        f"💥 Amount: {amount:.4f} BAO\n"
+                        f"📅 Date: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(latest_tx['timeStamp'])))}\n"
+                        f"🎯 BAO Bought: {amount:.2f}\n"
+                        f"💰 Total Value: ${amount * 0.0001:.2f}\n"  # Calcularea valorii totale
+                        f"📈 BAO Price: $0.0001\n"
                         f"🔗 [Check the transaction on BSCscan 🧐](https://bscscan.com/tx/{last_tx})"
                     )
 
-                    # Trimitere mesaj pe Telegram (await necesar)
+                    # Trimitere mesaj pe Telegram
                     await bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="Markdown")
         except Exception as e:
             print(f"⚠️ Eroare: {e}")
