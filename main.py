@@ -37,7 +37,7 @@ async def check_transactions():
                     last_tx = latest_tx["hash"]  # Actualizare ultima tranzacție
                     amount = int(latest_tx["value"]) / 10**18
 
-                    # Construire mesaj
+                    # Construire mesaj (va fi descrierea imaginii)
                     message = (
                         "🐼🐼🐼🐼🐼\n"
                         "✨ **New Pandorian Join The Army** ✨\n\n"
@@ -45,9 +45,8 @@ async def check_transactions():
                         f"🔗 [Check the transaction on BSCscan 🧐](https://bscscan.com/tx/{last_tx})"
                     )
 
-                    # Trimitere mesaj și imagine
-                    await bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="Markdown")
-                    await bot.send_photo(chat_id=CHAT_ID, photo=IMAGE_URL)
+                    # Trimitere imagine cu descrierea mesajului
+                    await bot.send_photo(chat_id=CHAT_ID, photo=IMAGE_URL, caption=message, parse_mode="Markdown")
 
         except Exception as e:
             print(f"⚠️ Eroare: {e}")
