@@ -39,9 +39,10 @@ async def check_transactions():
 
                     # Construire mesaj (va fi descrierea imaginii)
                     message = (
-                        "🐼🐼🐼🐼🐼\n"
+                        "🐼🐼🐼🐼🐼🐼🐼🐼🐼🐼🐼🐼🐼\n"
                         "✨ **New Pandorian Join The Army** ✨\n\n"
-                        f"💰 Amount: {amount} BNB\n"
+                        f"💰 Amount: {amount} BNB (+25% Reward)\n"
+                        "💰Price🐼: 0.0001$ BAO\n"
                         f"🔗 [Check the transaction on BSCscan 🧐](https://bscscan.com/tx/{last_tx})"
                     )
 
