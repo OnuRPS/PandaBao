@@ -2,7 +2,6 @@ import os
 import aiohttp
 import asyncio
 from telegram import Bot
-from telegram.ext import Updater, CommandHandler
 
 # Configurări - Citire variabile de mediu
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -10,6 +9,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 BSCSCAN_API_KEY = os.getenv("BSCSCAN_API_KEY")
 CONTRACT_ADDRESS = "0x8f9eCCd7047855e82341c56cB60aa10EEffF3084"
 API_URL = "https://api.bscscan.com/api"
+IMAGE_URL = "https://pandabao.org/wp-content/uploads/2024/12/Telegram.jpg"
 
 # Verificare dacă variabilele sunt setate corect
 if not TELEGRAM_TOKEN:
@@ -27,29 +27,28 @@ async def check_transactions():
     last_tx = ""  # Salvează ultima tranzacție verificată
     while True:
         try:
-            # Cerere către BscScan API folosind aiohttp pentru a face cererea asincron
             async with aiohttp.ClientSession() as session:
                 async with session.get(f"{API_URL}?module=account&action=txlist&address={CONTRACT_ADDRESS}&sort=desc&apikey={BSCSCAN_API_KEY}") as response:
                     data = await response.json()
 
-            # Verificare dacă răspunsul API este valid
             if data.get("status") == "1" and "result" in data:
                 latest_tx = data["result"][0]
                 if latest_tx["hash"] != last_tx:
                     last_tx = latest_tx["hash"]  # Actualizare ultima tranzacție
                     amount = int(latest_tx["value"]) / 10**18
-                    sender = latest_tx["from"]
-                    
+
                     # Construire mesaj
                     message = (
-                        f"🐼🐼🐼🐼🐼\n"  # Adăugăm emoticoanele de urs panda
-                        f"✨ **New Pandorian Join The Army** ✨\n\n"  # Textul frumos stilizat
+                        "🐼🐼🐼🐼🐼\n"
+                        "✨ **New Pandorian Join The Army** ✨\n\n"
                         f"💰 Amount: {amount} BNB\n"
                         f"🔗 [Check the transaction on BSCscan 🧐](https://bscscan.com/tx/{last_tx})"
                     )
 
-                    # Trimitere mesaj pe Telegram (await necesar)
+                    # Trimitere mesaj și imagine
                     await bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="Markdown")
+                    await bot.send_photo(chat_id=CHAT_ID, photo=IMAGE_URL)
+
         except Exception as e:
             print(f"⚠️ Eroare: {e}")
         
