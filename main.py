@@ -42,7 +42,8 @@ async def check_transactions():
                     
                     # Construire mesaj
                     message = (
-                        f"🔔 **🐼A new transaction has been made! 🐼**\n\n"
+                        f"🐼🐼🐼🐼🐼\n"  # Adăugăm emoticoanele de urs panda
+                        f"New Pandorian Join The Army\n\n"
                         f"📤 From:  `{sender}`\n"
                         f"💰 Amount: {amount} BNB\n"
                         f"🔗 [Check the transaction on BSCscan 🧐](https://bscscan.com/tx/{last_tx})"
