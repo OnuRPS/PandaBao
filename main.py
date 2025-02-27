@@ -9,7 +9,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 BSCSCAN_API_KEY = os.getenv("BSCSCAN_API_KEY")
 CONTRACT_ADDRESS = "0x8f9eCCd7047855e82341c56cB60aa10EEffF3084"
 API_URL = "https://api.bscscan.com/api"
-IMAGE_URL = "https://pandabao.org/wp-content/uploads/2024/12/Telegram.jpg"
+GIF_URL = "https://pandabao.org/wp-content/uploads/2024/12/Telegram.gif"
 
 # Verificare dacă variabilele sunt setate corect
 if not TELEGRAM_TOKEN:
