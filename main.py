@@ -9,6 +9,8 @@ CHAT_ID = os.getenv("CHAT_ID")
 BSCSCAN_API_KEY = os.getenv("BSCSCAN_API_KEY")
 CONTRACT_ADDRESS = "0x8f9eCCd7047855e82341c56cB60aa10EEffF3084"
 API_URL = "https://api.bscscan.com/api"
+
+# URL-ul GIF-ului pe care vrei să-l trimiți
 GIF_URL = "https://pandabao.org/wp-content/uploads/2024/12/Telegram.gif"
 
 # Verificare dacă variabilele sunt setate corect
@@ -37,19 +39,19 @@ async def check_transactions():
                     last_tx = latest_tx["hash"]  # Actualizare ultima tranzacție
                     amount = int(latest_tx["value"]) / 10**18
 
-                    # Construire mesaj (va fi descrierea imaginii)
+                    # Construire mesaj (descriere GIF)
                     message = (
                         "🐼🐼🐼🐼🐼🐼🐼🐼🐼🐼🐼🐼🐼\n"
                         "⚡🔥 New Pandorian Join The Army! 🔥⚡\n\n"
                         f"💰 Amount: {amount} BNB (+25% Reward)\n"
                         "💰Price🐼: 0.0001$ BAO\n"
-                        f"🔗 [Check the transaction on BSCscan 🧐](https://bscscan.com/tx/{last_tx})"
+                        f"🔗 [Check the transaction on BSCscan 🧐](https://bscscan.com/tx/{last_tx})\n"
                         "🔥🔥Listing Price: 0.003$🔥🔥\n"
                         "🟢🟢PancakeSwap: 30x🟢🟢\n"
                     )
 
-                    # Trimitere imagine cu descrierea mesajului
-                    await bot.send_photo(chat_id=CHAT_ID, photo=IMAGE_URL, caption=message, parse_mode="Markdown")
+                    # Trimitere GIF cu mesajul
+                    await bot.send_animation(chat_id=CHAT_ID, animation=GIF_URL, caption=message, parse_mode="Markdown")
 
         except Exception as e:
             print(f"⚠️ Eroare: {e}")
