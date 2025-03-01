@@ -11,7 +11,7 @@ CONTRACT_ADDRESS = "0x8f9eCCd7047855e82341c56cB60aa10EEffF3084"
 API_URL = "https://api.bscscan.com/api"
 
 # URL-ul GIF-ului pe care vrei să-l trimiți
-GIF_URL = "https://pandabao.org/wp-content/uploads/2024/12/Telegram.gif"
+GIF_URL = "https://pandabao.org/wp-content/uploads/2024/12/TelegramCumparari.gif"
 
 # Verificare dacă variabilele sunt setate corect
 if not TELEGRAM_TOKEN:
