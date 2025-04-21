@@ -9,7 +9,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
 GIF_URL = os.getenv("GIF_URL")  # Optional
 
-CONTRACT_ADDRESS = "0x68b2BfB227BE9C3540f9e9084c768821e336C64d"
+CONTRACT_ADDRESS = "0x36721B2A5829768de3D79B5a9A1780652BC25cb2"
 API_URL = "https://api.etherscan.io/api"
 
 # Verificare config
@@ -50,6 +50,7 @@ async def check_transactions():
                         "⚱️ Powered by *Chrysus* \n"
                         "🌐 https://chrysus.org"
                         "🌐 https://www.pinksale.finance/launchpad/ethereum/0x36721B2A5829768de3D79B5a9A1780652BC25cb2?refId=0x68b2bfb227be9c3540f9e9084c768821e336c64d"
+                        "\n\n🤖 *BuyDetector* by [ReactLAB](https://pandabao.org/) — crafted for precision and performance."
                     )
 
                     if GIF_URL:
