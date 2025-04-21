@@ -7,7 +7,7 @@ from telegram import Bot
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
-GIF_URL = os.getenv("GIF_URL", "")  # Optional
+GIF_URL = os.getenv("GIF_URL")  # Optional
 
 CONTRACT_ADDRESS = "0x68b2BfB227BE9C3540f9e9084c768821e336C64d"
 API_URL = "https://api.etherscan.io/api"
