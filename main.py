@@ -42,13 +42,14 @@ async def check_transactions():
                     to_address = latest_tx["to"]
 
                     message = (
-                        "🪙 *New CHAU movement detected!*\n\n"
+                        "🪙 *New $GOV movement detected!*\n\n"
                         f"🔁 From: `{from_address}`\n"
                         f"📥 To: `{to_address}`\n"
                         f"💰 Amount: {amount:.4f} ETH\n"
                         f"🔗 [View on Etherscan](https://etherscan.io/tx/{last_tx})\n\n"
-                        "⚱️ Powered by *Chrysus* — Gold-pegged, inflation-resistant stablecoin.\n"
+                        "⚱️ Powered by *Chrysus* \n"
                         "🌐 https://chrysus.org"
+                        "🌐 https://www.pinksale.finance/launchpad/ethereum/0x36721B2A5829768de3D79B5a9A1780652BC25cb2?refId=0x68b2bfb227be9c3540f9e9084c768821e336c64d"
                     )
 
                     if GIF_URL:
