@@ -3,16 +3,16 @@ import aiohttp
 import asyncio
 from telegram import Bot
 
-# CONFIG
+# Configurări din environment
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
+GIF_URL = os.getenv("GIF_URL", "")  # Optional
 
 CONTRACT_ADDRESS = "0x68b2BfB227BE9C3540f9e9084c768821e336C64d"
 API_URL = "https://api.etherscan.io/api"
-GIF_URL = "https://pandabao.org/wp-content/uploads/2025/04/Untitled-design-3.gif"
 
-# VALIDĂRI
+# Verificare config
 if not TELEGRAM_TOKEN:
     raise ValueError("⚠️ TELEGRAM_TOKEN is missing!")
 if not CHAT_ID:
@@ -20,35 +20,43 @@ if not CHAT_ID:
 if not ETHERSCAN_API_KEY:
     raise ValueError("⚠️ ETHERSCAN_API_KEY is missing!")
 
+# Inițializare bot
 bot = Bot(token=TELEGRAM_TOKEN)
 
 async def check_transactions():
-    last_tx = None
-
+    print("✅ Bot is running and watching the address...")
+    last_tx = ""
     while True:
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.get(
-                    f"{API_URL}?module=account&action=txlist&address={CONTRACT_ADDRESS}&sort=desc&apikey={ETHERSCAN_API_KEY}"
-                ) as response:
+                url = f"{API_URL}?module=account&action=txlist&address={CONTRACT_ADDRESS}&sort=desc&apikey={ETHERSCAN_API_KEY}"
+                async with session.get(url) as response:
                     data = await response.json()
 
-            if data.get("status") == "1" and "result" in data:
+            if data.get("status") == "1" and data.get("result"):
                 latest_tx = data["result"][0]
                 if latest_tx["hash"] != last_tx:
                     last_tx = latest_tx["hash"]
-                    amount_eth = int(latest_tx["value"]) / 10**18
+                    amount = int(latest_tx["value"]) / 10**18
+                    from_address = latest_tx["from"]
+                    to_address = latest_tx["to"]
 
                     message = (
-                        "🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\n"
-                        "🥇The Future of DeFi is GOLD! Get in NOW!\n"
-                        "⚡🔥 New Buy On PinkSale 🔥⚡\n\n"
-                        f"💰 Amount: {amount_eth:.4f} ETH \n"
-                        f"🔗 [Check the transaction on Etherscan 🧐](https://etherscan.io/tx/{last_tx})\n"
+                        "🪙 *New CHAU movement detected!*\n\n"
+                        f"🔁 From: `{from_address}`\n"
+                        f"📥 To: `{to_address}`\n"
+                        f"💰 Amount: {amount:.4f} ETH\n"
+                        f"🔗 [View on Etherscan](https://etherscan.io/tx/{last_tx})\n\n"
+                        "⚱️ Powered by *Chrysus* — Gold-pegged, inflation-resistant stablecoin.\n"
+                        "🌐 https://chrysus.org"
                     )
 
-                    await bot.send_animation(chat_id=CHAT_ID, animation=GIF_URL, caption=message, parse_mode="Markdown")
-                    print(f"✅ Sent GIF with transaction {last_tx}")
+                    if GIF_URL:
+                        await bot.send_animation(chat_id=CHAT_ID, animation=GIF_URL, caption=message, parse_mode="Markdown")
+                    else:
+                        await bot.send_message(chat_id=CHAT_ID, text=message, parse_mode="Markdown")
+                    print(f"✅ New TX posted: {last_tx}")
+
         except Exception as e:
             print(f"⚠️ Error: {e}")
 
