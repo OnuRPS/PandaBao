@@ -22,9 +22,9 @@ if not TELEGRAM_TOKEN or not CHAT_ID or not ETHERSCAN_API_KEY:
 bot = Bot(token=TELEGRAM_TOKEN)
 
 def generate_bullets(amount_eth):
-    bullets_count = int((amount_eth / 0.05))
-    bullets_count = min(bullets_count, 40)
-    return '🔵' * bullets_count
+    bullets_count = int((amount_eth / 0.01))
+    bullets_count = min(bullets_count, 100)
+    return '🥇' * bullets_count
 
 async def get_eth_price():
     try:
@@ -77,14 +77,14 @@ async def check_transactions():
                         f"📥 To: `{to_address}`\n"
                         f"💰 Amount: {amount_eth:.4f} ETH (~${usd_value:,.2f})\n"
                         f"{bullets}\n\n"
-                        f"📊 *Total Balance:* {eth_balance:.4f} ETH (~${eth_balance_usd:,.2f})\n"
+                        f"📊 *Total Raise:* {eth_balance:.4f} ETH (~${eth_balance_usd:,.2f})\n"
                         f"🔗 [View on Etherscan](https://etherscan.io/tx/{last_tx})\n\n"
                         f"⚱️ Powered by *Chrysus*\n"
                         f"🌐 https://chrysus.org\n"
                         f"🌐 https://www.pinksale.finance/launchpad/ethereum/0x36721B2A5829768de3D79B5a9A1780652BC25cb2?refId=0x68b2bfb227be9c3540f9e9084c768821e336c64d\n\n"
                         f"───────────────\n"
                         f"🤖 𝓑𝓾𝔂𝓓𝓮𝓽𝓮𝓬𝓽𝓸𝓻™\n"
-                        f"🔧 𝒃𝒚 [𝑹𝒆𝒂𝒄𝒕𝑳𝑨𝑩](https://pandabao.org/) — 𝙋𝙤𝙬𝙚𝙧𝙚𝙙 𝙗𝙮 𝘿𝙚𝙛𝙞 𝙋𝙪𝙧𝙥𝙤𝙨𝙚.\n"
+                        f"🔧 𝒃𝒚 [𝑹𝒆𝒂𝒄𝒕𝑳𝑨𝑩](https://pandabao.org/)\n"
                         f"───────────────"
                     )
 
